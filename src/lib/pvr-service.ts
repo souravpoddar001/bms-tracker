@@ -9,6 +9,10 @@ function pvrHeaders(city: string): Record<string, string> {
     'city': city,
     'appVersion': '17.2',
     'platform': 'WEB',
+    'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+    'Accept': 'application/json, text/plain, */*',
+    'Origin': 'https://www.pvrcinemas.com',
+    'Referer': 'https://www.pvrcinemas.com/',
   };
 }
 
