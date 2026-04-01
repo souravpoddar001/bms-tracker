@@ -29,3 +29,6 @@ data/
 # playwright
 .playwright-mcp/
 *.png
+azure-timer/deploy.zip
+azure-timer/dist/
+azure-timer/package-lock.json
