@@ -19,7 +19,8 @@ export async function GET(request: Request) {
 
     return NextResponse.json(filtered);
   } catch (error) {
-    console.error('[API] Failed to fetch cities:', error);
-    return NextResponse.json({ error: 'Failed to fetch cities' }, { status: 500 });
+    const msg = error instanceof Error ? error.message : String(error);
+    console.error('[API] Failed to fetch cities:', msg);
+    return NextResponse.json({ error: 'Failed to fetch cities', detail: msg }, { status: 500 });
   }
 }

@@ -20,7 +20,9 @@ async function pvrPost(endpoint: string, city: string, body: Record<string, unkn
     signal: AbortSignal.timeout(30_000),
   });
   if (!response.ok) {
-    throw new Error(`PVR API ${response.status}: ${endpoint}`);
+    const errorBody = await response.text().catch(() => '');
+    console.error(`[PVR] ${response.status} ${endpoint}:`, errorBody.slice(0, 500));
+    throw new Error(`PVR API ${response.status}: ${endpoint} — ${errorBody.slice(0, 200)}`);
   }
   const data = await response.json() as { status: number; output: unknown; msg: string };
   if (!data.output) {
