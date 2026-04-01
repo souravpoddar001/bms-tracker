@@ -2,9 +2,11 @@
   "name": "bms-tracker-timer",
   "version": "1.0.0",
   "private": true,
+  "main": "dist/functions/pollBMS.js",
   "scripts": {
     "start": "func start",
-    "build": "tsc"
+    "build": "tsc",
+    "prestart": "npm run build"
   },
   "dependencies": {
     "@azure/functions": "^4.0.0"
