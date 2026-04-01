@@ -20,13 +20,23 @@ async function fetchBMS(url: string): Promise<string> {
       ['-s', '--http1.1', '-L', '-H', `User-Agent: ${USER_AGENT}`, url],
       { timeout: 30_000, encoding: 'utf-8', maxBuffer: 10 * 1024 * 1024 }
     );
-    return stdout;
-  } catch {
-    // curl unavailable (e.g., Azure Static Web Apps container) — fall back to fetch
+    if (stdout && stdout.length > 0) return stdout;
+  } catch (curlErr) {
+    console.log(`[BMS] curl failed (falling back to fetch): ${curlErr}`);
   }
 
   const response = await fetch(url, {
-    headers: { 'User-Agent': USER_AGENT },
+    headers: {
+      'User-Agent': USER_AGENT,
+      'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,application/json,*/*;q=0.8',
+      'Accept-Language': 'en-US,en;q=0.9',
+      'Accept-Encoding': 'gzip, deflate, br',
+      'Connection': 'keep-alive',
+      'Sec-Fetch-Dest': 'document',
+      'Sec-Fetch-Mode': 'navigate',
+      'Sec-Fetch-Site': 'none',
+      'Sec-Fetch-User': '?1',
+    },
     redirect: 'follow',
     signal: AbortSignal.timeout(30_000),
   });
