@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
-import { fetchCities } from '@/lib/bms-service';
+import { fetchCities } from '@/lib/pvr-service';
 
-// GET /api/cities?q=bang — Search BMS cities
+// GET /api/cities?q=bang — Search PVR INOX cities
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
@@ -14,15 +14,12 @@ export async function GET(request: Request) {
     }
 
     const filtered = cities.filter(
-      (c) =>
-        c.regionName.toLowerCase().includes(query) ||
-        c.regionCode.toLowerCase().includes(query) ||
-        c.alias.some((a) => a.toLowerCase().includes(query))
+      (c) => c.name.toLowerCase().includes(query)
     );
 
     return NextResponse.json(filtered);
   } catch (error) {
     console.error('[API] Failed to fetch cities:', error);
-    return NextResponse.json({ error: 'Failed to fetch cities from BookMyShow' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to fetch cities' }, { status: 500 });
   }
 }

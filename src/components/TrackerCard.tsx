@@ -31,7 +31,7 @@ export default function TrackerCard({ tracker, onStop, onDelete }: TrackerCardPr
           </div>
 
           <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted mt-2">
-            <span>{tracker.formatLabel}</span>
+            <span>{tracker.experience}</span>
             <span>{tracker.cityName}</span>
             <span>{formatDate(tracker.date)}</span>
           </div>

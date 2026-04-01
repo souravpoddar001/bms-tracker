@@ -14,7 +14,7 @@ export async function sendBookingAlert(tracker: Tracker): Promise<boolean> {
     return false;
   }
 
-  const subject = `Bookings Open: ${tracker.movieTitle} - ${tracker.formatLabel}`;
+  const subject = `Bookings Open: ${tracker.movieTitle} - ${tracker.experience}`;
   const showsList = (tracker.showsFound || [])
     .map((s) => `  - ${s.venue} at ${s.time} (${s.screenAttr})`)
     .join('\n');
@@ -22,14 +22,14 @@ export async function sendBookingAlert(tracker: Tracker): Promise<boolean> {
   const body = [
     `Bookings are now open for ${tracker.movieTitle}!`,
     '',
-    `Format: ${tracker.formatLabel}`,
+    `Format: ${tracker.experience}`,
     `City: ${tracker.cityName}`,
     `Date: ${tracker.date}`,
     '',
     'Available shows:',
     showsList || '  (Check BookMyShow for details)',
     '',
-    `Book now: ${tracker.bookingUrl || 'https://in.bookmyshow.com'}`,
+    `Book now: ${tracker.bookingUrl || 'https://www.pvrcinemas.com/show-timings'}`,
   ].join('\n');
 
   const results = await Promise.all(
@@ -47,7 +47,7 @@ export async function sendErrorAlert(tracker: Tracker): Promise<boolean> {
 
   const subject = `BMS Tracker Error: ${tracker.movieTitle}`;
   const body = [
-    `The tracker for "${tracker.movieTitle}" (${tracker.formatLabel}) has failed ${tracker.consecutiveErrors} times in a row.`,
+    `The tracker for "${tracker.movieTitle}" (${tracker.experience}) has failed ${tracker.consecutiveErrors} times in a row.`,
     '',
     `Last error: ${tracker.lastError || 'Unknown'}`,
     '',

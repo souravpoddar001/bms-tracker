@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import * as db from '@/lib/db';
-import { checkAvailability } from '@/lib/bms-service';
+import { checkAvailability } from '@/lib/pvr-service';
 import { sendBookingAlert, sendErrorAlert } from '@/lib/email-service';
 
 const ERROR_THRESHOLD = 5;
@@ -14,14 +14,13 @@ export async function GET() {
       return NextResponse.json({ message: 'No active trackers', results: [] });
     }
 
-    // Process trackers in parallel (each uses async curl, not blocking)
     const results = await Promise.allSettled(
       activeTrackers.map(async (tracker) => {
         try {
           const result = await checkAvailability(
-            tracker.cityCode,
-            tracker.movieSlug,
-            tracker.formatEventCode,
+            tracker.cityName,
+            tracker.filmCommonCode,
+            tracker.experience,
             tracker.date
           );
 

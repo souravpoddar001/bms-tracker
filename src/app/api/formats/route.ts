@@ -1,25 +1,24 @@
 import { NextResponse } from 'next/server';
-import { fetchFormats } from '@/lib/bms-service';
+import { fetchFormats } from '@/lib/pvr-service';
 
-// GET /api/formats?cityCode=BANG&movieSlug=avengers&eventCode=ET00469257
+// GET /api/formats?city=Bengaluru&filmCommonCode=36402
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
-    const cityCode = searchParams.get('cityCode');
-    const movieSlug = searchParams.get('movieSlug');
-    const eventCode = searchParams.get('eventCode');
+    const city = searchParams.get('city');
+    const filmCommonCode = searchParams.get('filmCommonCode');
 
-    if (!cityCode || !movieSlug || !eventCode) {
+    if (!city || !filmCommonCode) {
       return NextResponse.json(
-        { error: 'cityCode, movieSlug, and eventCode are required' },
+        { error: 'city and filmCommonCode are required' },
         { status: 400 }
       );
     }
 
-    const formats = await fetchFormats(cityCode, movieSlug, eventCode);
+    const formats = await fetchFormats(city, filmCommonCode);
     return NextResponse.json(formats);
   } catch (error) {
     console.error('[API] Failed to fetch formats:', error);
-    return NextResponse.json({ error: 'Failed to fetch formats from BookMyShow' }, { status: 500 });
+    return NextResponse.json({ error: 'Failed to fetch formats' }, { status: 500 });
   }
 }
