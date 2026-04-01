@@ -9,9 +9,11 @@ const USER_AGENT =
 
 const REGIONS_API = 'https://in.bookmyshow.com/api/explore/v1/discover/regions';
 
-// ─── HTTP Layer (curl to bypass Cloudflare) ────────────────────────
+// ─── HTTP Layer ────────────────────────────────────────────────────
+// Try curl first (bypasses Cloudflare TLS fingerprinting), fall back to fetch
 
 async function fetchBMS(url: string): Promise<string> {
+  // Try curl first — works locally and on most Linux containers
   try {
     const { stdout } = await execFileAsync(
       'curl',
@@ -19,9 +21,19 @@ async function fetchBMS(url: string): Promise<string> {
       { timeout: 30_000, encoding: 'utf-8', maxBuffer: 10 * 1024 * 1024 }
     );
     return stdout;
-  } catch (error) {
-    throw new Error(`Failed to fetch ${url}: ${error}`);
+  } catch {
+    // curl unavailable (e.g., Azure Static Web Apps container) — fall back to fetch
   }
+
+  const response = await fetch(url, {
+    headers: { 'User-Agent': USER_AGENT },
+    redirect: 'follow',
+    signal: AbortSignal.timeout(30_000),
+  });
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status} fetching ${url}`);
+  }
+  return response.text();
 }
 
 async function fetchJSON(url: string): Promise<unknown> {
