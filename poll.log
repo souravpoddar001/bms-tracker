@@ -1,0 +1,355 @@
+[dotenv@17.3.1] injecting env (5) from .env.local -- tip: ⚙️  suppress all logs with { quiet: true }
+[36m=== BMS Tracker — Local Poller ===[0m
+Polling every 4 minutes
+Cosmos DB: https://bms-tracker-db.documen...
+Email: DoNotReply@6517d218-7f88-4d4a-a11a-5334445bc681.azurecomm.net
+
+[01:49:20] Checking 1 tracker(s)...
+  PROJECT HAIL MARY (IMAX) — not available yet
+[01:53:21] Checking 1 tracker(s)...
+  PROJECT HAIL MARY (IMAX) — not available yet
+[01:57:21] Checking 1 tracker(s)...
+  PROJECT HAIL MARY (IMAX) — not available yet
+[02:01:21] Checking 1 tracker(s)...
+  PROJECT HAIL MARY (IMAX) — not available yet
+[02:16:45] Poll failed: RestError: read ENOTCONN 
+ {
+  "code": "ENOTCONN",
+  "name": "RestError",
+  "headers": {
+    "x-ms-cosmos-correlated-activityid": "REDACTED",
+    "x-ms-throttle-retry-count": "REDACTED",
+    "x-ms-throttle-retry-wait-time-ms": "REDACTED"
+  },
+  "diagnostics": {
+    "clientSideRequestStatistics": {
+      "requestStartTimeUTCInMs": 1775076405454,
+      "requestDurationInMs": 308,
+      "totalRequestPayloadLengthInBytes": 0,
+      "totalResponsePayloadLengthInBytes": 0,
+      "locationEndpointsContacted": [
+        "https://bms-tracker-db-centralindia.documents.azure.com:443/"
+      ],
+      "metadataDiagnostics": {
+        "metadataLookups": []
+      },
+      "retryDiagnostics": {
+        "failedAttempts": []
+      },
+      "gatewayStatistics": []
+    }
+  },
+  "request": {
+    "url": "https://bms-tracker-db-centralindia.documents.azure.com:443/dbs/bms-tracker/colls/trackers/docs",
+    "method": "POST",
+    "headers": {
+      "x-ms-documentdb-responsecontinuationtokenlimitinkb": "REDACTED",
+      "x-ms-documentdb-query-enablecrosspartition": "REDACTED",
+      "cache-control": "no-cache",
+      "x-ms-version": "REDACTED",
+      "user-agent": "Node.js/22.20.0 (darwin; arm64) azure-cosmos-js/4.9.2",
+      "x-ms-useragent": "Node.js/22.20.0 (darwin; arm64) azure-cosmos-js/4.9.2",
+      "x-ms-cosmos-sdk-supportedcapabilities": "REDACTED",
+      "x-ms-cosmos-allow-tentative-writes": "REDACTED",
+      "x-ms-date": "REDACTED",
+      "content-type": "application/query+json",
+      "accept": "application/json",
+      "authorization": "REDACTED",
+      "x-ms-cosmos-correlated-activityid": "REDACTED",
+      "x-ms-documentdb-isquery": "REDACTED",
+      "content-length": "54"
+    },
+    "timeout": 0,
+    "withCredentials": false,
+    "enableBrowserStreams": false,
+    "disableKeepAlive": false,
+    "abortSignal": {},
+    "requestId": "655989a2-da67-4307-86b4-4162023c0c25",
+    "allowInsecureConnection": false,
+    "agent": {
+      "maxFreeSockets": 256,
+      "maxSockets": null
+    }
+  }
+}
+[02:50:27] Checking 1 tracker(s)...
+  PROJECT HAIL MARY (IMAX) — not available yet
+[03:24:32] Checking 1 tracker(s)...
+  [31mERROR: PROJECT HAIL MARY — The operation was aborted due to timeout[0m
+[03:39:59] Poll failed: RestError: read ENOTCONN 
+ {
+  "code": "ENOTCONN",
+  "name": "RestError",
+  "headers": {
+    "x-ms-throttle-retry-count": "REDACTED",
+    "x-ms-throttle-retry-wait-time-ms": "REDACTED"
+  },
+  "diagnostics": {
+    "clientSideRequestStatistics": {
+      "requestStartTimeUTCInMs": 1775081399843,
+      "requestDurationInMs": 46,
+      "totalRequestPayloadLengthInBytes": 0,
+      "totalResponsePayloadLengthInBytes": 0,
+      "locationEndpointsContacted": [
+        "https://bms-tracker-db-centralindia.documents.azure.com:443/"
+      ],
+      "metadataDiagnostics": {
+        "metadataLookups": []
+      },
+      "retryDiagnostics": {
+        "failedAttempts": []
+      },
+      "gatewayStatistics": []
+    }
+  },
+  "request": {
+    "url": "https://bms-tracker-db-centralindia.documents.azure.com:443/dbs/bms-tracker/colls/trackers/docs",
+    "method": "POST",
+    "headers": {
+      "x-ms-documentdb-responsecontinuationtokenlimitinkb": "REDACTED",
+      "x-ms-documentdb-query-enablecrosspartition": "REDACTED",
+      "cache-control": "no-cache",
+      "x-ms-version": "REDACTED",
+      "user-agent": "Node.js/22.20.0 (darwin; arm64) azure-cosmos-js/4.9.2",
+      "x-ms-useragent": "Node.js/22.20.0 (darwin; arm64) azure-cosmos-js/4.9.2",
+      "x-ms-cosmos-sdk-supportedcapabilities": "REDACTED",
+      "x-ms-cosmos-allow-tentative-writes": "REDACTED",
+      "x-ms-documentdb-partitionkey": "REDACTED",
+      "x-ms-date": "REDACTED",
+      "content-type": "application/json",
+      "accept": "application/json",
+      "authorization": "REDACTED",
+      "x-ms-documentdb-is-upsert": "REDACTED",
+      "content-length": "596"
+    },
+    "timeout": 0,
+    "withCredentials": false,
+    "enableBrowserStreams": false,
+    "disableKeepAlive": false,
+    "abortSignal": {},
+    "requestId": "7a3554e2-5099-4cb9-ba16-dd6689754329",
+    "allowInsecureConnection": false,
+    "agent": {
+      "maxFreeSockets": 256,
+      "maxSockets": null
+    }
+  }
+}
+[03:40:00] Checking 1 tracker(s)...
+  PROJECT HAIL MARY (IMAX) — not available yet
+[04:02:22] Checking 1 tracker(s)...
+  PROJECT HAIL MARY (IMAX) — not available yet
+[04:18:39] Checking 1 tracker(s)...
+  PROJECT HAIL MARY (IMAX) — not available yet
+[04:34:54] Checking 1 tracker(s)...
+  PROJECT HAIL MARY (IMAX) — not available yet
+[05:03:21] Checking 1 tracker(s)...
+  PROJECT HAIL MARY (IMAX) — not available yet
+[05:34:45] Checking 1 tracker(s)...
+  [31mERROR: PROJECT HAIL MARY — The operation was aborted due to timeout[0m
+[05:50:12] Poll failed: RestError: read ENOTCONN 
+ {
+  "code": "ENOTCONN",
+  "name": "RestError",
+  "headers": {
+    "x-ms-throttle-retry-count": "REDACTED",
+    "x-ms-throttle-retry-wait-time-ms": "REDACTED"
+  },
+  "diagnostics": {
+    "clientSideRequestStatistics": {
+      "requestStartTimeUTCInMs": 1775089212722,
+      "requestDurationInMs": 39,
+      "totalRequestPayloadLengthInBytes": 0,
+      "totalResponsePayloadLengthInBytes": 0,
+      "locationEndpointsContacted": [
+        "https://bms-tracker-db-centralindia.documents.azure.com:443/"
+      ],
+      "metadataDiagnostics": {
+        "metadataLookups": []
+      },
+      "retryDiagnostics": {
+        "failedAttempts": []
+      },
+      "gatewayStatistics": []
+    }
+  },
+  "request": {
+    "url": "https://bms-tracker-db-centralindia.documents.azure.com:443/dbs/bms-tracker/colls/trackers/docs",
+    "method": "POST",
+    "headers": {
+      "x-ms-documentdb-responsecontinuationtokenlimitinkb": "REDACTED",
+      "x-ms-documentdb-query-enablecrosspartition": "REDACTED",
+      "cache-control": "no-cache",
+      "x-ms-version": "REDACTED",
+      "user-agent": "Node.js/22.20.0 (darwin; arm64) azure-cosmos-js/4.9.2",
+      "x-ms-useragent": "Node.js/22.20.0 (darwin; arm64) azure-cosmos-js/4.9.2",
+      "x-ms-cosmos-sdk-supportedcapabilities": "REDACTED",
+      "x-ms-cosmos-allow-tentative-writes": "REDACTED",
+      "x-ms-documentdb-partitionkey": "REDACTED",
+      "x-ms-date": "REDACTED",
+      "content-type": "application/json",
+      "accept": "application/json",
+      "authorization": "REDACTED",
+      "x-ms-documentdb-is-upsert": "REDACTED",
+      "content-length": "596"
+    },
+    "timeout": 0,
+    "withCredentials": false,
+    "enableBrowserStreams": false,
+    "disableKeepAlive": false,
+    "abortSignal": {},
+    "requestId": "501d3593-37e5-4ae2-b5ff-9ecf2495f63f",
+    "allowInsecureConnection": false,
+    "agent": {
+      "maxFreeSockets": 256,
+      "maxSockets": null
+    }
+  }
+}
+[05:50:13] Checking 1 tracker(s)...
+  PROJECT HAIL MARY (IMAX) — not available yet
+[06:04:27] Checking 1 tracker(s)...
+  PROJECT HAIL MARY (IMAX) — not available yet
+[06:37:57] Checking 1 tracker(s)...
+  [31mERROR: PROJECT HAIL MARY — The operation was aborted due to timeout[0m
+[06:53:36] Poll failed: RestError: read ENOTCONN 
+ {
+  "code": "ENOTCONN",
+  "name": "RestError",
+  "headers": {
+    "x-ms-throttle-retry-count": "REDACTED",
+    "x-ms-throttle-retry-wait-time-ms": "REDACTED"
+  },
+  "diagnostics": {
+    "clientSideRequestStatistics": {
+      "requestStartTimeUTCInMs": 1775093016461,
+      "requestDurationInMs": 394,
+      "totalRequestPayloadLengthInBytes": 0,
+      "totalResponsePayloadLengthInBytes": 0,
+      "locationEndpointsContacted": [
+        "https://bms-tracker-db-centralindia.documents.azure.com:443/"
+      ],
+      "metadataDiagnostics": {
+        "metadataLookups": []
+      },
+      "retryDiagnostics": {
+        "failedAttempts": []
+      },
+      "gatewayStatistics": []
+    }
+  },
+  "request": {
+    "url": "https://bms-tracker-db-centralindia.documents.azure.com:443/dbs/bms-tracker/colls/trackers/docs",
+    "method": "POST",
+    "headers": {
+      "x-ms-documentdb-responsecontinuationtokenlimitinkb": "REDACTED",
+      "x-ms-documentdb-query-enablecrosspartition": "REDACTED",
+      "cache-control": "no-cache",
+      "x-ms-version": "REDACTED",
+      "user-agent": "Node.js/22.20.0 (darwin; arm64) azure-cosmos-js/4.9.2",
+      "x-ms-useragent": "Node.js/22.20.0 (darwin; arm64) azure-cosmos-js/4.9.2",
+      "x-ms-cosmos-sdk-supportedcapabilities": "REDACTED",
+      "x-ms-cosmos-allow-tentative-writes": "REDACTED",
+      "x-ms-documentdb-partitionkey": "REDACTED",
+      "x-ms-date": "REDACTED",
+      "content-type": "application/json",
+      "accept": "application/json",
+      "authorization": "REDACTED",
+      "x-ms-documentdb-is-upsert": "REDACTED",
+      "content-length": "596"
+    },
+    "timeout": 0,
+    "withCredentials": false,
+    "enableBrowserStreams": false,
+    "disableKeepAlive": false,
+    "abortSignal": {},
+    "requestId": "214cc9f9-7ef6-4c61-a95e-dc8bd260547c",
+    "allowInsecureConnection": false,
+    "agent": {
+      "maxFreeSockets": 256,
+      "maxSockets": null
+    }
+  }
+}
+[06:53:37] Checking 1 tracker(s)...
+  PROJECT HAIL MARY (IMAX) — not available yet
+[07:00:30] Checking 1 tracker(s)...
+  PROJECT HAIL MARY (IMAX) — not available yet
+[07:05:26] Checking 1 tracker(s)...
+  PROJECT HAIL MARY (IMAX) — not available yet
+[07:10:27] Checking 1 tracker(s)...
+  PROJECT HAIL MARY (IMAX) — not available yet
+[07:14:57] Checking 1 tracker(s)...
+  PROJECT HAIL MARY (IMAX) — not available yet
+[07:32:53] Checking 1 tracker(s)...
+  PROJECT HAIL MARY (IMAX) — not available yet
+[07:49:08] Checking 1 tracker(s)...
+  PROJECT HAIL MARY (IMAX) — not available yet
+[08:00:58] Checking 1 tracker(s)...
+  PROJECT HAIL MARY (IMAX) — not available yet
+[08:04:56] Checking 1 tracker(s)...
+  PROJECT HAIL MARY (IMAX) — not available yet
+[08:15:14] Checking 1 tracker(s)...
+  PROJECT HAIL MARY (IMAX) — not available yet
+[08:27:27] Checking 1 tracker(s)...
+  PROJECT HAIL MARY (IMAX) — not available yet
+[09:17:04] Poll failed: ErrorResponse: The authorization token is not valid at the current time. Please create another token and retry (token start time: Thu, 02 Apr 2026 03:22:25 GMT, token expiry time: Thu, 02 Apr 2026 03:22:25 GMT, current server time: Thu, 02 Apr 2026 03:47:03 GMT).
+ActivityId: e5bc0730-43ba-404c-a9eb-4d834183fcd9, documentdb-dotnet-sdk/2.14.0 Host/64-bit MicrosoftWindowsNT/10.0.20348.0
+    at httpRequest (/Users/sourav/Downloads/BMS tracker/bms-tracker/node_modules/@azure/cosmos/dist/commonjs/request/RequestHandler.js:131:27)
+    at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+    at async /Users/sourav/Downloads/BMS tracker/bms-tracker/node_modules/@azure/cosmos/dist/commonjs/retry/retryUtility.js:104:26
+    at async addDiagnosticChild (/Users/sourav/Downloads/BMS tracker/bms-tracker/node_modules/@azure/cosmos/dist/commonjs/utils/diagnostics.js:60:22)
+    at async addDiagnosticChild (/Users/sourav/Downloads/BMS tracker/bms-tracker/node_modules/@azure/cosmos/dist/commonjs/utils/diagnostics.js:60:22)
+    at async addDiagnosticChild (/Users/sourav/Downloads/BMS tracker/bms-tracker/node_modules/@azure/cosmos/dist/commonjs/utils/diagnostics.js:60:22)
+    at async addDiagnosticChild (/Users/sourav/Downloads/BMS tracker/bms-tracker/node_modules/@azure/cosmos/dist/commonjs/utils/diagnostics.js:60:22)
+    at async addDiagnosticChild (/Users/sourav/Downloads/BMS tracker/bms-tracker/node_modules/@azure/cosmos/dist/commonjs/utils/diagnostics.js:60:22)
+    at async addDiagnosticChild (/Users/sourav/Downloads/BMS tracker/bms-tracker/node_modules/@azure/cosmos/dist/commonjs/utils/diagnostics.js:60:22)
+    at async addDiagnosticChild (/Users/sourav/Downloads/BMS tracker/bms-tracker/node_modules/@azure/cosmos/dist/commonjs/utils/diagnostics.js:60:22) {
+  code: 403,
+  substatus: 0,
+  body: {
+    code: 'Forbidden',
+    message: 'The authorization token is not valid at the current time. Please create another token and retry (token start time: Thu, 02 Apr 2026 03:22:25 GMT, token expiry time: Thu, 02 Apr 2026 03:22:25 GMT, current server time: Thu, 02 Apr 2026 03:47:03 GMT).\r\n' +
+      'ActivityId: e5bc0730-43ba-404c-a9eb-4d834183fcd9, documentdb-dotnet-sdk/2.14.0 Host/64-bit MicrosoftWindowsNT/10.0.20348.0'
+  },
+  headers: {
+    activityid: 'e5bc0730-43ba-404c-a9eb-4d834183fcd9, documentdb-dotnet-sdk/2.14.0 Host/64-bit MicrosoftWindowsNT/10.0.20348.0',
+    date: 'Thu, 02 Apr 2026 03:47:03 GMT',
+    'transfer-encoding': 'chunked',
+    'content-type': 'application/json',
+    'x-ms-activity-id': 'e5bc0730-43ba-404c-a9eb-4d834183fcd9',
+    server: 'Compute',
+    'x-ms-gatewayversion': '2.0.0',
+    'x-ms-substatus': '0',
+    'x-ms-cosmos-correlated-activityid': 'bf7e5289-7d31-41eb-9d80-8753bdeba678',
+    'x-ms-throttle-retry-count': 0,
+    'x-ms-throttle-retry-wait-time-ms': 0
+  },
+  activityId: 'e5bc0730-43ba-404c-a9eb-4d834183fcd9',
+  retryAfterInMs: undefined,
+  retryAfterInMilliseconds: undefined,
+  diagnostics: CosmosDiagnostics {
+    clientSideRequestStatistics: {
+      requestStartTimeUTCInMs: 1775100145260,
+      requestDurationInMs: 1479531,
+      totalRequestPayloadLengthInBytes: 4374,
+      totalResponsePayloadLengthInBytes: 407,
+      locationEndpointsContacted: [Array],
+      metadataDiagnostics: [Object],
+      retryDiagnostics: [Object],
+      gatewayStatistics: [Array],
+      encryptionDiagnostics: undefined
+    },
+    diagnosticNode: undefined,
+    clientConfig: undefined
+  },
+  requestCharge: undefined
+}
+[09:17:04] Checking 1 tracker(s)...
+[09:17:04] Checking 1 tracker(s)...
+  PROJECT HAIL MARY (IMAX) — not available yet
+  PROJECT HAIL MARY (IMAX) — not available yet
+[09:57:13] Checking 1 tracker(s)...
+  PROJECT HAIL MARY (IMAX) — not available yet
+[10:01:09] Checking 1 tracker(s)...
+  PROJECT HAIL MARY (IMAX) — not available yet

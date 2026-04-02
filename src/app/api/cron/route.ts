@@ -21,7 +21,8 @@ export async function GET() {
             tracker.cityName,
             tracker.filmCommonCode,
             tracker.experience,
-            tracker.date
+            tracker.date,
+            tracker.theatreId
           );
 
           if (result.available) {

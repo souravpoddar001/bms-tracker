@@ -183,6 +183,45 @@ export async function fetchFormats(city: string, filmCommonCode: string): Promis
     .map((e) => ({ experience: e, label: e }));
 }
 
+export interface TheatreResult {
+  theatreId: string;
+  name: string;
+  address: string;
+}
+
+export async function fetchTheatres(city: string, filmCommonCode: string, experience: string): Promise<TheatreResult[]> {
+  const output = await pvrPost('v1/booking/content/cshowtimes', city, {
+    city, lat: '0.000', lng: '0.000', dated: 'NA', minDistance: 0,
+  }) as PVRShowtimesResponse;
+
+  const theatres: TheatreResult[] = [];
+  const seen = new Set<string>();
+  const targetExp = experience === 'Any' ? null : experience;
+
+  for (const session of output.showTimeSessions) {
+    for (const cms of session.cinemaMovieSessions) {
+      if (!cms.movieRe.films?.some((f) => f.filmCommonCode === filmCommonCode)) continue;
+
+      const hasFormat = !targetExp || (cms.experienceSessions || []).some(
+        (e) => (e.experience || 'Standard') === targetExp
+      );
+      if (!hasFormat) continue;
+
+      const tid = session.cinemaRe.theatreId;
+      if (seen.has(tid)) continue;
+      seen.add(tid);
+
+      theatres.push({
+        theatreId: tid,
+        name: session.cinemaRe.name,
+        address: session.cinemaRe.address1 || '',
+      });
+    }
+  }
+
+  return theatres.sort((a, b) => a.name.localeCompare(b.name));
+}
+
 export interface AvailabilityResult {
   available: boolean;
   shows: ShowInfo[];
@@ -194,6 +233,7 @@ export async function checkAvailability(
   filmCommonCode: string,
   experience: string,
   date: string, // YYYYMMDD
+  theatreId?: string | null,
 ): Promise<AvailabilityResult> {
   // Convert YYYYMMDD to YYYY-MM-DD for the dated param
   const dated = `${date.slice(0, 4)}-${date.slice(4, 6)}-${date.slice(6, 8)}`;
@@ -206,6 +246,8 @@ export async function checkAvailability(
   const targetExperience = experience === 'Any' ? null : experience;
 
   for (const session of output.showTimeSessions) {
+    if (theatreId && session.cinemaRe.theatreId !== theatreId) continue;
+
     for (const cms of session.cinemaMovieSessions) {
       const matchesMovie = cms.movieRe.films?.some((f) => f.filmCommonCode === filmCommonCode);
       if (!matchesMovie) continue;

@@ -12,6 +12,8 @@ export interface Tracker {
   filmCommonCode: string;
   experience: string;       // "IMAX", "4DX", "Standard", "Any", etc.
   cityName: string;
+  theatreId: string | null;  // null = any theatre
+  theatreName: string | null;
   date: string;             // YYYYMMDD
   status: 'polling' | 'found' | 'stopped';
   lastChecked: string | null;

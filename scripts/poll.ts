@@ -33,6 +33,8 @@ interface Tracker {
   filmCommonCode: string;
   experience: string;
   cityName: string;
+  theatreId: string | null;
+  theatreName: string | null;
   date: string;
   status: string;
   lastChecked: string | null;
@@ -65,7 +67,7 @@ function pvrHeaders(city: string): Record<string, string> {
 interface PVRShowtimesResponse {
   days: unknown[];
   showTimeSessions: Array<{
-    cinemaRe: { name: string };
+    cinemaRe: { theatreId: string; name: string };
     cinemaMovieSessions: Array<{
       movieRe: { films: Array<{ filmCommonCode: string }> };
       experienceSessions: Array<{
@@ -98,6 +100,8 @@ async function checkAvailability(tracker: Tracker) {
   const targetExp = tracker.experience === 'Any' ? null : tracker.experience;
 
   for (const session of data.output.showTimeSessions) {
+    if (tracker.theatreId && session.cinemaRe.theatreId !== tracker.theatreId) continue;
+
     for (const cms of session.cinemaMovieSessions) {
       if (!cms.movieRe.films?.some(f => f.filmCommonCode === tracker.filmCommonCode)) continue;
 

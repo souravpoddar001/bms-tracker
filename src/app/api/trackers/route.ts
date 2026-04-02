@@ -18,7 +18,7 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { movieTitle, filmCommonCode, experience, cityName, date } = body;
+    const { movieTitle, filmCommonCode, experience, cityName, date, theatreId, theatreName } = body;
 
     if (!movieTitle || !filmCommonCode || !experience || !cityName || !date) {
       return NextResponse.json({ error: 'All fields are required' }, { status: 400 });
@@ -37,6 +37,8 @@ export async function POST(request: Request) {
       filmCommonCode,
       experience,
       cityName,
+      theatreId: theatreId || null,
+      theatreName: theatreName || null,
       date,
       status: 'polling',
       lastChecked: null,

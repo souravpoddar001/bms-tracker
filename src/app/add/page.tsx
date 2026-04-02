@@ -4,11 +4,12 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Calendar from '@/components/Calendar';
 
-type Step = 'city' | 'movie' | 'format' | 'date' | 'confirm';
+type Step = 'city' | 'movie' | 'format' | 'theatre' | 'date' | 'confirm';
 
 interface City { id: number; name: string; region: string; cinemaCount: number }
 interface Movie { filmCommonCode: string; filmName: string; languages: string[] }
 interface Format { experience: string; label: string }
+interface Theatre { theatreId: string; name: string; address: string }
 
 export default function AddTrackerPage() {
   const router = useRouter();
@@ -19,6 +20,7 @@ export default function AddTrackerPage() {
   const [city, setCity] = useState<City | null>(null);
   const [movie, setMovie] = useState<Movie | null>(null);
   const [format, setFormat] = useState<Format | null>(null);
+  const [theatre, setTheatre] = useState<Theatre | null>(null);
   const [date, setDate] = useState('');
 
   const [cityQuery, setCityQuery] = useState('');
@@ -26,6 +28,7 @@ export default function AddTrackerPage() {
   const [movieQuery, setMovieQuery] = useState('');
   const [movieResults, setMovieResults] = useState<Movie[]>([]);
   const [formats, setFormats] = useState<Format[]>([]);
+  const [theatres, setTheatres] = useState<Theatre[]>([]);
   const [creating, setCreating] = useState(false);
 
   async function searchCities() {
@@ -94,12 +97,41 @@ export default function AddTrackerPage() {
 
   function selectFormat(f: Format) {
     setFormat(f);
+    setStep('theatre');
+    setError('');
+    fetchTheatres(f);
+  }
+
+  function useAnyFormat() {
+    const f = { experience: 'Any', label: 'Any Format' };
+    setFormat(f);
+    setStep('theatre');
+    setError('');
+    fetchTheatres(f);
+  }
+
+  async function fetchTheatres(f: Format) {
+    if (!city || !movie) return;
+    setLoading(true);
+    try {
+      const res = await fetch(`/api/theatres?city=${encodeURIComponent(city.name)}&filmCommonCode=${movie.filmCommonCode}&experience=${encodeURIComponent(f.experience)}`);
+      if (!res.ok) throw new Error('Failed');
+      setTheatres(await res.json());
+    } catch {
+      setError('Failed to fetch theatres.');
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  function selectTheatre(t: Theatre) {
+    setTheatre(t);
     setStep('date');
     setError('');
   }
 
-  function useAnyFormat() {
-    setFormat({ experience: 'Any', label: 'Any Format' });
+  function useAnyTheatre() {
+    setTheatre(null);
     setStep('date');
     setError('');
   }
@@ -123,6 +155,8 @@ export default function AddTrackerPage() {
           filmCommonCode: movie.filmCommonCode,
           experience: format.experience,
           cityName: city.name,
+          theatreId: theatre?.theatreId || null,
+          theatreName: theatre?.name || null,
           date: date.replace(/-/g, ''),
         }),
       });
@@ -152,6 +186,7 @@ export default function AddTrackerPage() {
     { key: 'city', label: 'City' },
     { key: 'movie', label: 'Movie' },
     { key: 'format', label: 'Format' },
+    { key: 'theatre', label: 'Theatre' },
     { key: 'date', label: 'Date' },
     { key: 'confirm', label: 'Confirm' },
   ];
@@ -273,6 +308,34 @@ export default function AddTrackerPage() {
         </div>
       )}
 
+      {/* Theatre */}
+      {step === 'theatre' && (
+        <div className="space-y-4">
+          <div className="flex items-center gap-3">
+            <button onClick={goBack} className="text-muted hover:text-foreground text-sm transition-colors">&larr; Back</button>
+            <p className="text-muted text-sm">Select a theatre for <span className="text-foreground font-medium">{movie?.filmName}</span> ({format?.label})</p>
+          </div>
+          {loading ? (
+            <div className="py-8 text-center text-muted text-sm">Loading theatres...</div>
+          ) : (
+            <>
+              <div className="space-y-2">
+                {theatres.map((t) => (
+                  <button key={t.theatreId} onClick={() => selectTheatre(t)}
+                    className="w-full text-left px-4 py-3 border border-card-border rounded-lg hover:border-accent transition-colors">
+                    <span className="font-medium">{t.name}</span>
+                    {t.address && <span className="text-muted text-xs ml-2">{t.address}</span>}
+                  </button>
+                ))}
+              </div>
+              <button onClick={useAnyTheatre} className="text-sm text-accent hover:text-accent-hover transition-colors">
+                Track any theatre
+              </button>
+            </>
+          )}
+        </div>
+      )}
+
       {/* Date */}
       {step === 'date' && (
         <div className="space-y-4">
@@ -301,6 +364,7 @@ export default function AddTrackerPage() {
               <span className="text-muted">Movie</span><span>{movie?.filmName}</span>
               <span className="text-muted">City</span><span>{city?.name}</span>
               <span className="text-muted">Format</span><span>{format?.label}</span>
+              <span className="text-muted">Theatre</span><span>{theatre?.name || 'Any theatre'}</span>
               <span className="text-muted">Date</span><span>{date ? formatFriendlyDate(date) : ''}</span>
             </div>
           </div>
